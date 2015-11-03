@@ -1,16 +1,4 @@
-if (typeof RFB !== "undefined"){
-	console.info("RFB", RFB);
-	RFB._rfb_port = 5901;
-} else {
-	console.info("no RFB")
-}
 
-if (typeof rfb !== "undefined"){
-	console.info("rfb", rfb);
-	rfb._rfb_port = 5901;
-}  else {
-	console.info("no rfb")
-}
 
 
 if (Meteor.isClient) {
