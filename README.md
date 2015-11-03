@@ -12,7 +12,7 @@ Running:
     $ cd noVNC
     $ ./utils/launch.sh --vnc localhost:5900
     
-    $ git clone https://github.com/n17r4m/twitch-viewer.git
+    $ git clone https://github.com/twitchintheshell/twitch-viewer.git
     $ cd twitch-viewer
     $ meteor
 
