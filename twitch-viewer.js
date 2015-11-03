@@ -1,3 +1,7 @@
+if (RFB){
+	RFB._rfb_port = 5901;
+}
+
 if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
