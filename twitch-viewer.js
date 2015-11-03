@@ -87,7 +87,10 @@ if (Meteor.isServer){
 		var status = spawn(EXEC, EARG);
 	
 		status.stdout.on('data', Meteor.bindEnvironment(function(data){
-			CommandLog.insert({message: data.toString(), time: +new Date()})
+			CommandLog.insert({
+				message: data.toString().replace("[Winning command] ", ""),
+				time: +new Date()
+			})
 		}));
 
 		status.stderr.on('data', Meteor.bindEnvironment(function(data){
