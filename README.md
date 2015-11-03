@@ -6,7 +6,7 @@ Requirements:
 Meteor
 noVNC
 
-Usage:
+Running:
 
     $ git clone https://github.com/jakozaur/noVNC.git 
     $ cd noVNC
@@ -21,3 +21,35 @@ Notes:
 Meteor runs on port 3000
 MongoDB runs on port 3001
 noVNC runs on port 6080
+
+Using:
+
+There are some tweakable parameters near the top of twitch-viewer.js
+
+Data on screen is updated via modifying the mongo database
+
+    $ cd twitch-viewer
+    $ meteor mongo
+
+There are 4 relavent collections
+
+board: {message: String}
+ticker: {message: String}
+ad: {url: String}
+commandlog: {message: String, time: Number}
+
+Example, to update the bulletinboard:
+
+    $ db.board.insert({message: "Important News Item!"})
+
+To add a new command log entry:
+
+    $ db.commandlog.insert({message: "n17r4m: c", time: +new Date()})
+
+To add a new ad image:
+
+    $ db.add.insert({url: "http://twitchintheshell.com/img/pic1.png"})
+
+
+
+

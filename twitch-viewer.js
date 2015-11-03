@@ -7,6 +7,7 @@ var Ad = new Meteor.Collection("ad");
 if (Meteor.isClient) {
 	
 	var AD_CHANGE_TIME = 30000;
+	var GARBAGE_TIME = 90000;
 	
 	window.Board = Board;
 	window.Ticker = Ticker;
@@ -32,8 +33,14 @@ if (Meteor.isClient) {
 	
 	
 	Template.commandlog.helpers({
-		item: function(){ return CommandLog.find() }
+		item: function(){ return CommandLog.find({}, {sort: {time: -1}}) }
 	})
+	
+	Meteor.setInterval(function(){
+		CommandLog.find({time: {$lt: +new Date() - GARBAGE_TIME}}).forEach(function(old){
+			CommandLog.remove(old._id);
+		})
+	}, 2000)
 	
 	
 	Template.ad.onRendered(function(){

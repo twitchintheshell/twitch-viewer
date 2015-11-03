@@ -26,7 +26,7 @@
 
 <template name="ticker">
 	<marquee behavior="scroll" scrollamount="1" direction="left" width="100%">
-	{{#each item}} <span class="item"> {{message}} </span> {{/each}}
+	{{#each item}}- <span class="item"> {{message}} </span> -{{/each}}
 	</marquee>
 </template>
 
