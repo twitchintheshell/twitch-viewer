@@ -75,8 +75,25 @@ if (Meteor.isClient) {
 	
 }
 
-if (Meteor.isServer) {
+
+if (Meteor.isServer){
+	var EXEC = "/path/to/twitch-master/init.sh";
+	var EARG = ["client_status"];
+	
 	Meteor.startup(function () {
-		// nop
+
+		var require = Npm.require;
+		var spawn = require('child_process').spawn;
+		var status = spawn(EXEC, EARG);
+	
+		status.stdout.on('data', Meteor.bindEnvironment(function(data){
+			CommandLog.insert({message: data.toString(), time: +new Date()})
+		}));
+
+		status.stderr.on('data', Meteor.bindEnvironment(function(data){
+			console.log('stderr: ' + data.toString());
+		}));
+
 	});
 }
+

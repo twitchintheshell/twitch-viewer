@@ -16,6 +16,10 @@ Running:
     $ cd twitch-viewer
     $ meteor
 
+Update configuration as needed in the tweakable parameters of twitch-viewer.js
+
+Be sure to set the EXEC line to the correct path to twitch-master/init.sh
+
 Notes:
 
 Meteor runs on port 3000
@@ -24,7 +28,7 @@ noVNC runs on port 6080
 
 Using:
 
-There are some tweakable parameters near the top of twitch-viewer.js
+
 
 Data on screen is updated via modifying the mongo database
 
