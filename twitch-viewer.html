@@ -3,18 +3,22 @@
 </head>
 
 <body>
-  <div class="area vnc">           {{> noVnc}}</div>
-  <div class="area bulletinboard"> {{> bulletinboard}}</div>
-  <div class="area ticker">        {{> ticker}}</div>
-  <div class="area commandlog">    {{> commandlog}}</div>
-  <div class="area ad">            {{> ad}}</div>
-  <div class="area clock">         {{> clock}}</div>
+	<div class="area vnc">
+		<div class="vmid">{{> noVnc}}</div>
+	</div>
+	<div class="area bulletinboard"> {{> bulletinboard}}</div>
+	<div class="area ticker">        {{> ticker}}</div>
+	<div class="area commandlog">    {{> commandlog}}</div>
+	<div class="area ad">            {{> ad}}</div>
+	<div class="area clock">         {{> clock}}</div>
 </body>
 
 
-<template name="bulletinboard">Bulletin Board</template>
+<template name="bulletinboard">{{board}}</template>
 
-<template name="ticker">Ticker</template>
+<template name="ticker">
+		Ticker
+</template>
 
 <template name="commandlog">Command Log</template>
 
