@@ -31,7 +31,7 @@ Data on screen is updated via modifying the mongo database
     $ cd twitch-viewer
     $ meteor mongo
 
-There are 4 relavent collections
+There are 4 relevant collections
 
 board: {message: String}
 ticker: {message: String}
@@ -41,6 +41,10 @@ commandlog: {message: String, time: Number}
 Example, to update the bulletinboard:
 
     $ db.board.insert({message: "Important News Item!"})
+
+Example, to update the ticker:
+
+    $ db.ticker.insert({message: "Now in Monarchy Mode!"})
 
 To add a new command log entry:
 
