@@ -3,26 +3,42 @@
 </head>
 
 <body>
-	<div class="area vnc">
-		<div class="vmid">{{> noVnc}}</div>
-	</div>
-	<div class="area bulletinboard"> {{> bulletinboard}}</div>
-	<div class="area ticker">        {{> ticker}}</div>
-	<div class="area commandlog">    {{> commandlog}}</div>
-	<div class="area ad">            {{> ad}}</div>
-	<div class="area clock">         {{> clock}}</div>
+	<div id="vnc" class="area">           {{> noVnc}}</div>
+	<div id="status" class="area">				{{> status}}</div>
+	<div id="bulletinboard" class="area"> {{> bulletinboard}}</div>
+	<div id="ticker" class="area">        {{> ticker}}</div>
+	<div id="commandlog" class="area">    {{> commandlog}}</div>
+	<div id="ad" class="area">            {{> ad}}</div>
+	<div id="clock" class="area">         {{> clock}}</div>
 </body>
 
-
-<template name="bulletinboard">{{board}}</template>
-
-<template name="ticker">
-		Ticker
+<template name="status">
+	System Status: ONLINE
 </template>
 
-<template name="commandlog">Command Log</template>
+<template name="bulletinboard">
+	<ul>
+	{{#each item}}
+		<li>{{message}}</li>
+	{{/each}}
+	</ul>
+</template>
 
-<template name="ad">[AD]</template>
+<template name="ticker">
+	<marquee behavior="scroll" scrollamount="1" direction="left" width="100%">
+	{{#each item}} <span class="item"> {{message}} </span> {{/each}}
+	</marquee>
+</template>
 
-<template name="clock">Clock</template>
+<template name="commandlog">
+	{{#each item}}<div>{{message}}</div>{{/each}}
+</template>
+
+<template name="ad">
+	<img src={{ad_url}}>
+</template>
+
+<template name="clock">
+	{{time}}
+</template>
 
