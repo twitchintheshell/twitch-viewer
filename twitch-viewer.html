@@ -1,0 +1,24 @@
+<head>
+  <title>twitch-viewer</title>
+</head>
+
+<body>
+  <div class="area vnc">           {{> noVnc}}</div>
+  <div class="area bulletinboard"> {{> bulletinboard}}</div>
+  <div class="area ticker">        {{> ticker}}</div>
+  <div class="area commandlog">    {{> commandlog}}</div>
+  <div class="area ad">            {{> ad}}</div>
+  <div class="area clock">         {{> clock}}</div>
+</body>
+
+
+<template name="bulletinboard">Bulletin Board</template>
+
+<template name="ticker">Ticker</template>
+
+<template name="commandlog">Command Log</template>
+
+<template name="ad">[AD]</template>
+
+<template name="clock">Clock</template>
+
