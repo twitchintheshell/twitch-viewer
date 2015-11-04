@@ -1,16 +1,16 @@
 
 var Board = new Meteor.Collection("board");
-var Ticker = new Meteor.Collection("ticker");
 var CommandLog = new Meteor.Collection("commandlog");
 var Ad = new Meteor.Collection("ad");
 
 if (Meteor.isClient) {
 	
+	Session.set("cpu", []);
+	
 	var AD_CHANGE_TIME = 30000;
-	var GARBAGE_TIME = 90000;
+	var GARBAGE_TIME = 150000;
 	
 	window.Board = Board;
-	window.Ticker = Ticker;
 	window.CommandLog = CommandLog;
 	window.Ad = Ad;
 	
@@ -19,17 +19,6 @@ if (Meteor.isClient) {
 		item: function(){ return Board.find() }
 	})
 	
-	
-	Template.ticker.onRendered(function(){
-		setTimeout(function(){
-			$("#ticker marquee").marquee()
-		}, 1000)
-	})
-	
-	
-	Template.ticker.helpers({
-		item: function(){ return Ticker.find() }
-	})
 	
 	
 	Template.commandlog.helpers({
@@ -65,24 +54,42 @@ if (Meteor.isClient) {
 	}, AD_CHANGE_TIME)
 	
 	
+	Template.status.helpers({
+		cpu: function(){ return Session.get("cpu") }
+	})
+	
+	Meteor.setInterval(function(){
+		Meteor.call("cpuInfo", function(err, ret){
+			if (err){
+				console.info(err);
+			} else {
+				Session.set("cpu", ret);
+				console.info(ret)
+			}
+		})
+	}, 2000)
+	
 	Template.clock.helpers({
 		time: function(){ return Session.get("time") }
 	})
 	
 	Meteor.setInterval(function(){
-		Session.set("time", moment().format("MMMM Do, h:mm:ss a"));
+		Session.set("time", moment().format("MMMM Do, h:mm:ss"));
 	},1000)
 	
 }
 
 
+
+
 if (Meteor.isServer){
-	var EXEC = "/path/to/twitch-master/init.sh";
+	var EXEC = "/home/yamamushi/twitch-master/init.sh";
 	var EARG = ["client_status"];
 	
+	var require = Npm.require;
+	
 	Meteor.startup(function () {
-
-		var require = Npm.require;
+		
 		var spawn = require('child_process').spawn;
 		var status = spawn(EXEC, EARG);
 	
@@ -96,7 +103,34 @@ if (Meteor.isServer){
 		status.stderr.on('data', Meteor.bindEnvironment(function(data){
 			console.log('stderr: ' + data.toString());
 		}));
-
+		
+		
+		
 	});
+	
+	
+	var os = require("os");
+	
+	Meteor.methods({
+		cpuInfo: function(){
+			
+			var ret = []
+			var cpus = os.cpus();
+			for(var i = 0, len = cpus.length; i < len; i++) {
+				var cpu = cpus[i], total = 0;
+				for(var type in cpu.times){
+					if (type != "idle"){
+						total += cpu.times[type];
+					}
+				}
+				var idle = cpu.times["idle"];
+				var percent = 100 * total / idle;
+				ret.push(parseInt(percent))
+			}
+			return ret;
+		}
+	})
+	
+	
 }
 

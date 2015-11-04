@@ -6,14 +6,17 @@
 	<div id="vnc" class="area">           {{> noVnc}}</div>
 	<div id="status" class="area">				{{> status}}</div>
 	<div id="bulletinboard" class="area"> {{> bulletinboard}}</div>
-	<div id="ticker" class="area">        {{> ticker}}</div>
 	<div id="commandlog" class="area">    {{> commandlog}}</div>
 	<div id="ad" class="area">            {{> ad}}</div>
 	<div id="clock" class="area">         {{> clock}}</div>
 </body>
 
 <template name="status">
-	System Status: ONLINE
+	<div>System Status: ONLINE</div>
+	<div> CPUs {{#each cpu}}
+		<span>{{this}}%</span>
+	{{/each}}
+	</div>
 </template>
 
 <template name="bulletinboard">
