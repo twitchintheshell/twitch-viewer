@@ -88,7 +88,7 @@ if (Meteor.isServer){
 	
 		status.stdout.on('data', Meteor.bindEnvironment(function(data){
 			CommandLog.insert({
-				message: data.toString().replace("[Winning command] ", ""),
+				message: data.toString().replace("Winning command ", ""),
 				time: +new Date()
 			})
 		}));
