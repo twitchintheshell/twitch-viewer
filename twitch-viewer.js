@@ -77,8 +77,7 @@ if (Meteor.isClient) {
 
 
 if (Meteor.isServer){
-	//var EXEC = "/path/to/twitch-master/init.sh";
-	var EXEC = "/home/martin/Documents/Code/beeper.sh";
+	var EXEC = "/path/to/twitch-master/init.sh";
 	var EARG = ["client_status"];
 	
 	Meteor.startup(function () {
