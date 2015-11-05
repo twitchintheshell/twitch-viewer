@@ -9,6 +9,7 @@ if (Meteor.isClient) {
 	
 	var AD_CHANGE_TIME = 30000;
 	var GARBAGE_TIME = 150000;
+	var SCREENSHOT_INTERVAL = 30000;
 	
 	window.Board = Board;
 	window.CommandLog = CommandLog;
@@ -18,7 +19,6 @@ if (Meteor.isClient) {
 	Template.bulletinboard.helpers({
 		item: function(){ return Board.find() }
 	})
-	
 	
 	
 	Template.commandlog.helpers({
@@ -64,7 +64,6 @@ if (Meteor.isClient) {
 				console.info(err);
 			} else {
 				Session.set("cpu", ret);
-				console.info(ret)
 			}
 		})
 	}, 2000)
@@ -77,14 +76,24 @@ if (Meteor.isClient) {
 		Session.set("time", moment().format("MMMM Do, h:mm:ss"));
 	},1000)
 	
+	Meteor.setInterval(function(){
+		var canvas = document.getElementById("NoVnc-canvas");
+		var img    = canvas.toDataURL("image/jpeg").replace("data:image/jpeg;base64,", "");
+		Meteor.call("screenshot", img);
+	}, SCREENSHOT_INTERVAL);
+	
 }
 
 
 
 
 if (Meteor.isServer){
+	
 	var EXEC = "/home/yamamushi/twitch-master/init.sh";
 	var EARG = ["client_status"];
+	
+	var SCREENSHOT_DIR = "/home/yamamushi/screenshots/";
+	
 	
 	var require = Npm.require;
 	
@@ -110,6 +119,7 @@ if (Meteor.isServer){
 	
 	
 	var os = require("os");
+	var fs = require("fs");
 	
 	Meteor.methods({
 		cpuInfo: function(){
@@ -128,7 +138,15 @@ if (Meteor.isServer){
 				ret.push(parseInt(percent))
 			}
 			return ret;
+		},
+		
+		screenshot: function(img){
+			var raw = new Buffer(img, 'base64');
+			fs.writeFile(SCREENSHOT_DIR + (+new Date()) + ".jpg", raw, function(err){
+				if (err){ console.info(err) }
+			});
 		}
+		
 	})
 	
 	

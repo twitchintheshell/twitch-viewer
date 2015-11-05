@@ -27,7 +27,7 @@ html, body {
 	width: 70%; height: 90%;
 	left:  0;      top: 0;
 	border-right: 1px solid #568;
-	padding-top: 1%;
+	padding-top: 0;
 }
 
 #status {
@@ -52,6 +52,7 @@ html, body {
 	width: 17%; height: 48%;
 	left:  70%; top:    47%;
 	border-right: 1px solid #568;
+	font-size: smaller;
 }
 
 #ad {
