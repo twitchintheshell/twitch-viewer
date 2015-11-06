@@ -32,8 +32,8 @@ html, body {
 
 #status {
 	padding: 1%;
-	width: 68%; height: 5%;
-	left:  0;      top: 90%;
+	width: 68%; height: 3%;
+	left:  0;      top: 92%;
 	border-top: 1px solid #568;
 	border-right: 1px solid #568;
 }
